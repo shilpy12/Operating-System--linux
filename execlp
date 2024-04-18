@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+int main() {
+    printf("Executing ls command using execlp...\n");
+
+    // Using execlp to replace the current process image with 'ls' command
+    execlp("ls", "ls", "-l", NULL);
+
+    // If execlp returns, it means an error occurred
+    perror("execlp failed");
+    return EXIT_FAILURE;
+}
