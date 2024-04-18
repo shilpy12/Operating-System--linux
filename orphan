@@ -1,0 +1,19 @@
+#include <stdlib.h>
+#include <unistd.h>
+int main() {
+    pid_t child_pid = fork(); // Create a child process
+    if (child_pid < 0) { // fork failed
+        perror("fork failed");
+        exit(EXIT_FAILURE);
+    }
+    if (child_pid == 0) { // Child process
+        printf("Child process with PID: %d\n", getpid());
+        sleep(2); // Child process sleeps for 2 seconds
+        printf("Child process exiting.\n");
+    } else { // Parent process
+        printf("Parent process with PID: %d\n", getpid());
+        printf("Parent process exiting.\n");
+        exit(EXIT_SUCCESS); // Parent process exits
+    }
+    return 0;
+}
