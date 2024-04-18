@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+int main() {
+    printf("Executing ls command using execle...\n");
+
+    // Setting environment variables
+    char *envp[] = {"PATH=/bin", NULL};
+
+    // Using execle to replace the current process image with 'ls' command
+    execle("/bin/ls", "ls", "-l", NULL, envp);
+
+    // If execle returns, it means an error occurred
+    perror("execle failed");
+    return EXIT_FAILURE;
+}
