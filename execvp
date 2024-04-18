@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+int main() {
+    printf("Executing ls command using execvp...\n");
+
+    // Arguments for the ls command
+    char *args[] = {"ls", "-l", NULL};
+
+    // Using execvp to replace the current process image with 'ls' command
+    execvp("ls", args);
+
+    // If execvp returns, it means an error occurred
+    perror("execvp failed");
+    return EXIT_FAILURE;
+}
