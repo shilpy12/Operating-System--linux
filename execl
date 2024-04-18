@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+int main() {
+    printf("Executing ls command...\n");
+
+    // Using execl to replace the current process image with 'ls' command
+    execl("/bin/ls", "ls", "-l", NULL);
+
+    // If execl returns, it means an error occurred
+    perror("execl failed");
+    return EXIT_FAILURE;
+}
