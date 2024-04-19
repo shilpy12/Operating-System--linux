@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main() {
+    pid_t pid;
+    // Create a child process
+    pid = fork();
+    if (pid < 0) {
+        // Fork failed
+        perror("fork");
+        exit(EXIT_FAILURE);
+    } else if (pid == 0) {
+        // Child process
+        printf("Child process created. PID: %d\n", getpid());
+
+        // Allocate memory in child process
+        char *child_mem = (char *)malloc(1024 * sizeof(char));
+        if (child_mem == NULL) {
+            perror("malloc");
+            exit(EXIT_FAILURE);
+        }
+        // Print memory allocation information for the child process
+        printf("Memory allocated in child process: /proc/%d/maps\n", getpid());
+        // Simulate some work
+        sleep(5);
+
+        // Free memory allocated in child process
+        free(child_mem);
+    } else {
+        // Parent process
+        printf("Parent process. PID: %d\n", getpid());
+        // Allocate memory in parent process
+        char *parent_mem = (char *)malloc(1024 * sizeof(char));
+        if (parent_mem == NULL) {
+            perror("malloc");
+            exit(EXIT_FAILURE);
+        }
+        // Print memory allocation information for the parent process
+        printf("Memory allocated in parent process: /proc/%d/maps\n", getpid());
+        // Simulate some work
+        sleep(5);
+        // Free memory allocated in parent process
+        free(parent_mem);
+    }
+    return 0;
+}
