@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+int main() {
+    pid_t pid;
+    int count = 0;
+    printf("Before vfork(), count = %d\n", count);
+    pid = vfork(); // Create a child process using vfork()
+    if (pid == -1) {
+        perror("vfork");
+        exit(EXIT_FAILURE);
+    } else if (pid == 0) {
+        // Child process
+        count++;
+        printf("Child process: count = %d\n", count);
+        // Simulate exec() call
+        execlp("/bin/ls", "ls", NULL); // Example: execute 'ls' command
+        perror("execlp"); // Print error if execlp fails
+        _exit(EXIT_FAILURE); // Exit child process if execlp fails
+    } else {
+        // Parent process
+        printf("Parent process: count = %d\n", count);
+    }
+    return 0;
+}
