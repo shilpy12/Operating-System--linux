@@ -1,7 +1,6 @@
 echo -n "Enter Base 5 number: "
 
 read bno
-bjbjbjhhclearj
 dec=0
 
 pow=1
